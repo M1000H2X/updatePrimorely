@@ -1,0 +1,17 @@
+# Segredos e configurações locais
+.env
+api/.env
+portal/mobile/.env
+api/_shared/config.local.php
+
+# Material criptográfico nunca deve entrar no repositório
+*.pfx
+*.p12
+*.pem
+*.key
+*.crt
+storage/nfse/
+
+# Artefatos temporários do worker
+*.log
+*.pid

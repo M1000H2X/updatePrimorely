@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#102a5e">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Erro 404 | Primorely</title>
+  <link rel="icon" href="/img/faviconPrimorely.png">
+  <style>
+    :root{--navy:#102a5e;--blue:#2254b6;--cyan:#08c9e8;--ink:#16233d;--muted:#66748d;--line:#dce6f3;--white:#fff}
+    *{box-sizing:border-box}
+    html,body{min-height:100%;margin:0}
+    body{min-height:100vh;display:grid;place-items:center;padding:28px;font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--ink);background:radial-gradient(circle at 12% 12%,rgba(8,201,232,.22),transparent 30%),radial-gradient(circle at 88% 82%,rgba(34,84,182,.18),transparent 34%),#f4f8fd;overflow-x:hidden}
+    .page{width:min(1080px,100%);display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,.85fr);align-items:center;gap:58px;padding:clamp(30px,5vw,68px);background:rgba(255,255,255,.86);border:1px solid rgba(255,255,255,.9);border-radius:32px;box-shadow:0 30px 90px rgba(16,42,94,.15);backdrop-filter:blur(18px)}
+    .logo{display:block;width:min(270px,72%);height:auto;margin-bottom:34px}
+    .code{display:inline-flex;align-items:center;gap:9px;margin-bottom:16px;padding:8px 13px;border:1px solid #cce3f5;border-radius:999px;background:#eef8ff;color:var(--blue);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .code i{width:8px;height:8px;border-radius:50%;background:#ff7657;box-shadow:0 0 0 5px rgba(255,118,87,.13)}
+    h1{max-width:620px;margin:0;font-size:clamp(34px,5vw,62px);line-height:1.02;letter-spacing:-.045em;color:var(--navy)}
+    .lead{max-width:610px;margin:22px 0 10px;font-size:clamp(17px,2vw,20px);line-height:1.55;color:#354762}
+    .note{max-width:610px;margin:0;color:var(--muted);line-height:1.65}
+    .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+    .button{min-height:48px;display:inline-flex;align-items:center;justify-content:center;padding:0 21px;border:0;border-radius:13px;font:inherit;font-weight:800;text-decoration:none;cursor:pointer;transition:.2s ease}
+    .button:hover{transform:translateY(-2px)}
+    .primary{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;box-shadow:0 13px 28px rgba(34,84,182,.23)}
+    .secondary{background:#fff;color:var(--navy);border:1px solid var(--line)}
+    .visual{position:relative;display:grid;place-items:center;min-height:390px}
+    .visual:before{content:"";position:absolute;width:330px;height:330px;border-radius:50%;background:linear-gradient(145deg,rgba(8,201,232,.15),rgba(34,84,182,.08))}
+    .maintenance{position:relative;width:min(430px,100%);filter:drop-shadow(0 24px 24px rgba(16,42,94,.16))}
+    .gear-a{transform-origin:330px 86px;animation:spin 8s linear infinite}.gear-b{transform-origin:374px 139px;animation:spinBack 6s linear infinite}.float{animation:float 3.4s ease-in-out infinite}
+    footer{grid-column:1/-1;padding-top:28px;border-top:1px solid var(--line);color:#8290a6;font-size:13px;text-align:center}
+    @keyframes spin{to{transform:rotate(360deg)}}@keyframes spinBack{to{transform:rotate(-360deg)}}@keyframes float{50%{transform:translateY(-8px)}}
+    @media(max-width:820px){body{padding:14px}.page{grid-template-columns:1fr;gap:22px;padding:30px 24px;border-radius:24px}.visual{order:-1;min-height:230px}.maintenance{width:min(300px,82vw)}.visual:before{width:220px;height:220px}.logo{margin-bottom:24px}.copy{text-align:center}.code{justify-content:center}.lead,.note{margin-left:auto;margin-right:auto}.actions{justify-content:center}footer{padding-top:20px}}
+    @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="copy">
+      <img class="logo" src="/img/logoPrimorely.png" alt="Primorely">
+      <span class="code"><i></i> Erro 404</span>
+      <h1>Ops! Estamos enfrentando dificuldades.</h1>
+      <p class="lead">Esta página está temporariamente indisponível</p>
+      <p class="note">Nossa equipe já está ciente e trabalhando para corrigir o problema o mais rápido possível. Tente novamente em alguns instantes.</p>
+      <div class="actions">
+        <button class="button primary" type="button" onclick="location.reload()">Tentar novamente</button>
+        <a class="button secondary" href="https://beta2.primorely.com.br/login.html">Voltar ao início</a>
+      </div>
+    </section>
+    <section class="visual" aria-label="Sistema em manutenção">
+      <svg class="maintenance" viewBox="0 0 460 390" role="img" aria-labelledby="maintenance-title">
+        <title id="maintenance-title">Ilustração de manutenção do sistema</title>
+        <ellipse cx="230" cy="350" rx="175" ry="22" fill="#dce8f6"/>
+        <g class="float">
+          <rect x="70" y="76" width="295" height="218" rx="24" fill="#fff" stroke="#bed2ea" stroke-width="4"/>
+          <path d="M70 112h295" stroke="#d9e5f2" stroke-width="4"/>
+          <circle cx="94" cy="94" r="6" fill="#ff7657"/><circle cx="114" cy="94" r="6" fill="#ffc857"/><circle cx="134" cy="94" r="6" fill="#17c89a"/>
+          <path d="M126 230c28-58 73-84 126-65 28 10 43 34 57 63" fill="none" stroke="#08c9e8" stroke-width="17" stroke-linecap="round"/>
+          <path d="M151 232c23-34 50-49 81-42 19 4 36 18 49 40" fill="none" stroke="#2254b6" stroke-width="17" stroke-linecap="round"/>
+          <circle cx="217" cy="221" r="20" fill="#102a5e"/><path d="m217 221 42-30" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
+          <path d="M183 294h70l14 34h-98z" fill="#b7cae2"/><rect x="139" y="324" width="158" height="15" rx="7.5" fill="#102a5e"/>
+        </g>
+        <g class="gear-a" fill="#08c9e8"><path d="M330 52l9 3 7-8 11 7-3 10 8 6 9-5 6 12-8 7 2 10 10 3-2 13-11 1-5 9 6 8-9 9-9-6-9 5-1 11-13 1-3-10-10-3-7 8-11-7 3-10-8-6-9 5-6-12 8-7-2-10-10-3 2-13 11-1 5-9-6-8 9-9 9 6 9-5 1-11 13-1z"/><circle cx="330" cy="86" r="14" fill="#fff"/></g>
+        <g class="gear-b" fill="#2254b6"><path d="M374 116l7 4 7-4 7 8-4 7 4 7 8 1v11l-8 2-3 7 5 7-8 8-7-5-7 3-2 8h-11l-1-8-7-4-7 4-7-8 4-7-4-7-8-1v-11l8-2 3-7-5-7 8-8 7 5 7-3 2-8h11z"/><circle cx="374" cy="139" r="11" fill="#fff"/></g>
+        <path d="M58 302h54l-10 38H68z" fill="#ff7657"/><path d="M67 302v-13h36v13" fill="none" stroke="#102a5e" stroke-width="6"/>
+        <path d="m78 313 16 16m0-16-16 16" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+    </section>
+    <footer>Primorely · Monitoramento e manutenção do sistema</footer>
+  </main>
+</body>
+</html>

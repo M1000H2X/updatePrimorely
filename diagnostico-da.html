@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Diagnóstico de DA · Primorely</title>
+  <style>
+    :root{font-family:Arial,sans-serif;color:#17233f;background:#f4f7fc}.page{max-width:1100px;margin:0 auto;padding:32px 18px}.head{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:22px}.head h1{margin:0;font-size:28px}.head p{margin:7px 0 0;color:#5b6780}.back{color:#173c80;text-decoration:none;font-weight:700}.status,.card{background:#fff;border:1px solid #dce4f2;border-radius:14px;padding:18px;box-shadow:0 8px 24px rgba(30,53,98,.06)}.status{margin-bottom:16px}.status.ok{border-color:#9bd8b3;background:#f2fff7}.status.error{border-color:#f0a4a4;background:#fff6f6}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px}.card h2{font-size:16px;margin:0 0 12px}.card p{margin:7px 0;font-size:14px}.ok-text{color:#13753d}.error-text{color:#b42318}.muted{color:#64748b}.details{margin-top:16px}.details summary{cursor:pointer;font-weight:700}.details pre{overflow:auto;background:#0f172a;color:#e2e8f0;padding:16px;border-radius:10px;font-size:12px}.reload{background:#173c80;color:#fff;border:0;border-radius:9px;padding:10px 14px;font-weight:700;cursor:pointer}@media(max-width:600px){.head{align-items:flex-start;flex-direction:column}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="head"><div><h1>Diagnóstico do Novo DA</h1><p>Validação de banco, rotas, envio, leitura e grid.</p></div><div><a class="back" href="novo-da.html">Voltar ao Novo DA</a> <button class="reload" id="reload" type="button">Executar novamente</button></div></header>
+    <section class="status" id="status">Executando diagnóstico...</section>
+    <section class="grid" id="tables"></section>
+    <details class="details"><summary>Ver relatório técnico completo</summary><pre id="json"></pre></details>
+  </main>
+  <script>
+    (function(){
+      var token=localStorage.getItem('pnr-session-id')||'',status=document.getElementById('status'),tables=document.getElementById('tables'),json=document.getElementById('json');
+      function esc(value){return String(value==null?'':value).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+      function run(){
+        status.className='status';status.textContent='Executando diagnóstico somente-leitura...';tables.innerHTML='';json.textContent='';
+        fetch('./api/diagnostico-da',{headers:token?{Authorization:'Bearer '+token}:{},cache:'no-store'}).then(function(response){return response.text().then(function(text){var data;try{data=JSON.parse(text)}catch(e){throw new Error('Resposta inválida da API: '+text.slice(0,160))}if(!response.ok)throw new Error(data.message||('HTTP '+response.status));return data;});}).then(function(data){
+          status.className='status '+(data.ok?'ok':'error');status.innerHTML=data.ok?'<strong>Diagnóstico concluído: estrutura e conexão estão consistentes.</strong><br><span class="muted">Banco: '+esc(data.bancoSelecionado)+' · '+esc(data.executadoEm)+'</span>':'<strong>Foram encontrados pontos que impedem o fluxo.</strong><br><span class="error-text">'+esc((data.erros||[]).join(', ')||'Verifique o relatório técnico.')+'</span>';
+          tables.innerHTML=(data.tabelas||[]).map(function(table){var ok=table.status==='OK';return '<article class="card"><h2>'+esc(table.tabela)+'</h2><p class="'+(ok?'ok-text':'error-text')+'"><strong>'+esc(table.status||'ERRO')+'</strong></p><p>Registros: '+esc(table.registros==null?'-':table.registros)+'</p><p>Última criação: '+esc(table.ultimaCriacao||'-')+'</p><p>Colunas ausentes: '+esc((table.colunasAusentes||[]).join(', ')||'nenhuma')+'</p><p>Campos do HTML ausentes na leitura: '+esc((table.camposHtmlAusentesNaLeitura||[]).join(', ')||'nenhum')+'</p></article>';}).join('');
+          json.textContent=JSON.stringify(data,null,2);
+        }).catch(function(error){status.className='status error';status.innerHTML='<strong>Não foi possível concluir o diagnóstico.</strong><br><span class="error-text">'+esc(error.message)+'</span>';});
+      }
+      document.getElementById('reload').onclick=run;run();
+    })();
+  </script>
+</body>
+</html>

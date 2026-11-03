@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Primorely</title>
+  <link rel="stylesheet" href="./assets/primorely-plain.css?v=20261001-revisao-da-v7">
+  <link rel="stylesheet" href="./assets/primorely-pacote.css?v=20260830-v8">
+</head>
+<body data-page="dashboard">
+  <div id="app-root" class="boot">
+    <h1>Dashboard</h1>
+    <p>Carregando sistema Primorely...</p>
+    <noscript>Ative o JavaScript para usar o sistema.</noscript>
+  </div>
+<script src="./assets/primorely-plain.js?v=20261028-equipe-gestor-v2" defer></script>
+<script>
+  /* Evita que uma falha transitória de download deixe a Dashboard presa na
+     tela inicial. O JavaScript principal remove a classe boot imediatamente
+     quando carrega; portanto este aviso só aparece se ele não chegou a abrir. */
+  window.setTimeout(function(){
+    var app=document.getElementById('app-root');
+    if(!app||!app.classList.contains('boot'))return;
+    app.classList.remove('boot');
+    app.innerHTML='<section style="max-width:520px;margin:72px auto;padding:28px;border:1px solid #dbe3ee;border-radius:16px;background:#fff;font-family:Arial,sans-serif;color:#172b4d"><h1 style="margin-top:0">Não foi possível iniciar o sistema</h1><p>O arquivo de inicialização não respondeu a tempo. Atualize a página para tentar novamente.</p><p><button type="button" id="retry-system" style="padding:10px 16px;border:0;border-radius:8px;background:#173f91;color:#fff;font-weight:700;cursor:pointer">Tentar novamente</button> <a href="./login.html" style="margin-left:12px;color:#173f91">Voltar ao login</a></p></section>';
+    var retry=document.getElementById('retry-system');
+    if(retry)retry.onclick=function(){window.location.reload();};
+  },8000);
+</script>
+</body>
+</html>

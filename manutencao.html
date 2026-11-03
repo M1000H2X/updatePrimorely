@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#081d42">
+  <title>Novidades a caminho — Primorely</title>
+  <link rel="icon" type="image/png" href="./img/icone.png">
+  <link rel="stylesheet" href="./assets/manutencao.css?v=20260801-1">
+</head>
+<body>
+  <main class="maintenance-shell">
+    <section class="maintenance-card" aria-labelledby="maintenance-title">
+      <header class="maintenance-brand">
+        <a href="dashboard.html" aria-label="Voltar ao Dashboard">
+          <img src="./img/logocolor.png" alt="Primorely">
+        </a>
+        <span class="status"><i></i> Evolução em andamento</span>
+      </header>
+
+      <div class="maintenance-layout">
+        <div class="maintenance-copy">
+          <span class="eyebrow">ESTAMOS CUIDANDO DE TUDO</span>
+          <h1 id="maintenance-title">Uma experiência ainda melhor está chegando.</h1>
+          <p>Estamos atualizando esta área para deixá-la mais simples, segura e intuitiva. Nossa equipe de desenvolvimento já está acompanhando todo o processo e, em breve, estaremos no ar.</p>
+
+          <div class="progress" aria-label="Atualização do sistema em andamento">
+            <div class="progress-head"><strong>Preparando a nova experiência</strong><span>Em andamento</span></div>
+            <div class="progress-track"><i></i></div>
+          </div>
+
+          <div class="maintenance-actions">
+            <a class="primary" href="dashboard.html">Voltar ao Dashboard</a>
+            <button id="reload-page" type="button">Verificar novamente</button>
+          </div>
+        </div>
+
+        <aside class="maintenance-visual" aria-hidden="true">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="visual-core">
+            <span class="tool tool-code">&lt;/&gt;</span>
+            <span class="tool tool-check">✓</span>
+            <span class="tool tool-spark">✦</span>
+            <div class="core-logo"><img src="./img/icone.png" alt=""></div>
+          </div>
+          <div class="team-note"><span>DEV</span><div><strong>Equipe conectada</strong><small>Monitorando esta atualização</small></div></div>
+        </aside>
+      </div>
+
+      <footer><span>Seus dados permanecem protegidos durante todo o processo.</span><span>Primorely · Tecnologia que simplifica</span></footer>
+    </section>
+  </main>
+  <script>
+    document.getElementById('reload-page').addEventListener('click', function () { location.reload(); });
+  </script>
+</body>
+</html>

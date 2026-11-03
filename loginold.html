@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Primorely</title>
+  <link rel="icon" type="image/png" href="./img/faviconPrimorely.png">
+  <link rel="stylesheet" href="./assets/primorely-plain.css?v=20260825-auth-login-fix-v3">
+</head>
+<body data-page="login">
+  <div id="login-root" class="boot">
+    <h1>Login Primorely</h1>
+    <p>Carregando tela de acesso...</p>
+    <noscript>Ative o JavaScript para usar o sistema.</noscript>
+  </div>
+  <script src="./assets/primorely-plain.js?v=20260825-auth-login-fix-v3" defer></script>
+  <script>
+    // Recuperação de interface: não deixa o acesso travado caso o bundle
+    // principal de JavaScript falhe durante uma publicação.
+    window.setTimeout(function () {
+      var root = document.getElementById('login-root');
+      if (!root || root.textContent.indexOf('Carregando tela de acesso') < 0) return;
+      root.className = 'boot';
+      root.innerHTML = '<h1>Login Primorely</h1><p>Use suas credenciais para acessar o sistema.</p><form id="fallback-login"><p><label>Usuário<br><input name="login" autocomplete="username" required></label></p><p><label>Senha<br><input name="senha" type="password" autocomplete="current-password" required></label></p><p><button type="submit">Acessar</button></p><p id="fallback-message" role="alert"></p></form>';
+      document.getElementById('fallback-login').addEventListener('submit', function (event) {
+        event.preventDefault();
+        var form = new FormData(event.currentTarget), message = document.getElementById('fallback-message');
+        message.textContent = 'Validando acesso...';
+        fetch('./api/auth/index.php?rota=login', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({login: form.get('login'), senha: form.get('senha')})
+        }).then(function (response) {
+          return response.json().catch(function () { return {}; }).then(function (payload) {
+            if (!response.ok) throw new Error(payload.message || ('Erro HTTP ' + response.status));
+            localStorage.setItem('pnr-session-id', payload.sessionId || '');
+            localStorage.setItem('pnr-user-id', (payload.usuario || {}).id || '');
+            localStorage.setItem('pnr-user-name', (payload.usuario || {}).nome || '');
+            location.href = './dashboard.html';
+          });
+        }).catch(function (error) { message.textContent = error.message || 'Não foi possível autenticar.'; });
+      });
+    }, 1800);
+  </script>
+</body>
+</html>

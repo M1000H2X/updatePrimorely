@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>M1000</title>
+  <style>
+    :root{--ink:#173044;--muted:#617483;--line:#d9e2e8;--surface:#fff;--page:#edf2f5;--blue:#16679b;--ok:#238658;--bad:#b74848}*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font:14px/1.45 Arial,sans-serif}.shell{max-width:1040px;margin:40px auto;padding:0 20px}.head,.panel{background:var(--surface);border:1px solid var(--line);border-radius:5px}.head{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:22px 25px;border-left:4px solid var(--blue)}h1{margin:0;font-size:22px}p{color:var(--muted)}button{border:1px solid #0f5987;border-radius:3px;background:var(--blue);color:#fff;padding:10px 14px;font-weight:700;cursor:pointer}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}.panel{padding:18px}.check{border-left:4px solid var(--ok)}.check.error{border-left-color:var(--bad)}.check h2{margin:0 0 8px;font-size:15px}.tag{display:inline-block;margin-bottom:8px;padding:2px 7px;border-radius:99px;background:#e6f5ec;color:var(--ok);font-size:11px;font-weight:700}.error .tag{background:#fbeaea;color:var(--bad)}.guide{margin-top:16px}.guide article{padding:13px 0;border-bottom:1px solid var(--line)}.guide article:last-child{border:0}.guide strong{display:block;margin-bottom:3px}.locked{max-width:520px;margin:15vh auto;padding:28px;text-align:center;background:#fff;border:1px solid var(--line);border-radius:5px}.muted{color:var(--muted)}@media(max-width:720px){.head{align-items:flex-start;flex-direction:column}.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="shell" id="app"><section class="locked"><h1>Verificando acesso</h1><p>O diagnóstico protegido está sendo carregado.</p></section></main>
+  <script>
+  (function(){
+    var app=document.getElementById('app'),token=localStorage.getItem('pnr-session-id')||'';
+    function esc(value){var item=document.createElement('div');item.textContent=String(value||'');return item.innerHTML;}
+    function fail(){app.innerHTML='<section class="locked"><h1>Acesso indisponível</h1><p>Esta página não está disponível para a sessão atual.</p></section>';}
+    fetch('./api/m1000/',{headers:token?{Authorization:'Bearer '+token}:{},cache:'no-store'}).then(function(response){if(!response.ok)throw new Error('blocked');return response.json();}).then(function(data){
+      var checks=(data.checks||[]).map(function(item){return '<article class="panel check '+(item.status==='ok'?'':'error')+'"><span class="tag">'+(item.status==='ok'?'VERIFICADO':'ATENÇÃO')+'</span><h2>'+esc(item.title)+'</h2><p>'+esc(item.detail)+'</p><small><strong>Como agir:</strong> '+esc(item.solution)+'</small></article>';}).join('');
+      var errors=(data.mappedErrors||[]).map(function(item){return '<article><strong>'+esc(item.code)+'</strong><span class="muted">Causa: '+esc(item.cause)+'</span><p>Como analisar: '+esc(item.action)+'</p></article>';}).join('');
+      app.innerHTML='<header class="head"><div><h1>M1000 · Diagnóstico privado</h1><p>Verificação técnica da sessão, autenticação e banco. Acesso: '+esc((data.owner||{}).nome)+'</p></div><button id="refresh" type="button">Analisar novamente</button></header><section class="grid">'+checks+'</section><section class="panel guide"><h2>Erros mapeados e análise</h2>'+errors+'</section>';
+      document.getElementById('refresh').onclick=function(){location.reload();};
+    }).catch(fail);
+  })();
+  </script>
+</body>
+</html>
